@@ -146,6 +146,32 @@ namespace WpfApp1
                     }
                 }
                 Max_Min.Text = $"Метод дихотомии:\nmax_x={xmax}, max_y={ymax}\nx_min={xmin}, y_min={ymin}";
+                double a = dataX[0];
+                double b = dataX[dataX.ToArray().Length - 1];
+                double eps = .001;
+                double x1 = 0;
+                double x2 = 0;
+                double y1 = 0;
+                double y2 = 0;
+                double x4 = 0;
+                while (true) {
+                    x1 = b - (b - a) / 1.618;
+                    x2 = a + (b - a) / 1.618;
+                    y1 = find_y(x1, dataX.ToArray(), dataY.ToArray());
+                    y2 = find_y(x2, dataX.ToArray(), dataY.ToArray());
+                    if (y1 >= y2) {
+                        a = x1;
+                    }
+                    else
+                    {
+                        b = x2; 
+                    }
+                     if (Math.Abs(b - a) < eps){
+                        x4 = (a + b) / 2;
+                        break;
+                    }
+                }
+                Max_Min.Text += $"\nx_min={x4}, y_min={find_y(x4, dataX.ToArray(), dataY.ToArray())}";
             }
             catch(Exception ex)
             {
