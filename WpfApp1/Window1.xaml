@@ -1,0 +1,20 @@
+﻿<Window x:Class="WpfApp1.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Открыть файл с точками" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Height="52" Width="152"/>
+        <ScottPlot:WpfPlot x:Name="WpfPlot1"  Grid.Row="1" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="28,34,0,0" TextWrapping="Wrap" Text="X Y" VerticalAlignment="Top" Height="333" Width="91" x:Name="Coordinates"/>
+        <TextBlock HorizontalAlignment="Left" Margin="178,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="201" Height="315" x:Name="Max_Min"/>
+    </Grid>
+</Window>
