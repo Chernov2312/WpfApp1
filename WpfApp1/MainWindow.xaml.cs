@@ -24,9 +24,7 @@ namespace WpfApp1
             InitializeComponent();
 
             ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource =
-                new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), "C:\\Users\\Admin\\source\\repos\\WpfApp1\\WpfApp1\\first_background.jpeg"));
-            this.Background = myBrush;
+   
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

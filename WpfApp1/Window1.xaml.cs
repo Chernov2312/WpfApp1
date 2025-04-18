@@ -21,9 +21,10 @@ namespace WpfApp1
     /// </summary>
     public partial class Window1 : Window
     {
+        public int grafics = 0;
         Dictionary<double, double> spline(double[] x, double[] y)
         {
-            double key = 0.1;
+            double key = 0.025;
             double[] b = new double[y.Length];
             double[] B = new double[y.Length];
             double[] h = new double[y.Length];
@@ -60,7 +61,6 @@ namespace WpfApp1
         }
         double find_y(double x2, double[] x, double[] y)
         {
-            double key = 0.1;
             double[] b = new double[y.Length];
             double[] B = new double[y.Length];
             double[] h = new double[y.Length];
@@ -103,10 +103,13 @@ namespace WpfApp1
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            grafics = 0;
+            grafics += 1;
             List<double> dataX = new List<double>();
             List<double> dataY = new List<double>();
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            Coordinates.Text = "X Y";
+            Coordinates.Text = $"\n№{grafics}\n";
+            Coordinates.Text += "X Y";
             openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt"; // "|*.txt" - так тоже можно,
                                                                      // часть до | для красоты
             openFileDialog.ShowDialog();
@@ -145,7 +148,8 @@ namespace WpfApp1
                         ymin = y3;
                     }
                 }
-                Max_Min.Text = $"Метод дихотомии:\nmax_x={xmax}, max_y={ymax}\nx_min={xmin}, y_min={ymin}";
+                Max_Min.Text = $"№{grafics}\n";
+                Max_Min.Text += $"Метод дихотомии:\nmax_x={xmax}, max_y={ymax}\nx_min={xmin}, y_min={ymin}";
                 double a = dataX[0];
                 double b = dataX[dataX.ToArray().Length - 1];
                 double eps = .001;
@@ -171,6 +175,7 @@ namespace WpfApp1
                         break;
                     }
                 }
+                Max_Min.Text += "\nМетод градиентного спуска";
                 Max_Min.Text += $"\nx_min={x4}, y_min={find_y(x4, dataX.ToArray(), dataY.ToArray())}";
             }
             catch(Exception ex)
@@ -179,5 +184,87 @@ namespace WpfApp1
             }
 
         }
-     }
+
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            List<double> dataX = new List<double>();
+            List<double> dataY = new List<double>();
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            grafics += 1;
+            Coordinates.Text += $"\n№{grafics}\n";
+            Coordinates.Text += "X Y";
+            openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt"; // "|*.txt" - так тоже можно,
+                                                                     // часть до | для красоты
+            openFileDialog.ShowDialog();
+            try
+            {
+                string[] lines = File.ReadAllLines(openFileDialog.FileName);
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(' ');
+                    if (double.TryParse(parts[0], out double x) && double.TryParse(parts[1], out double y))
+                    {
+                        dataX.Add(x);
+                        dataY.Add(y);
+                        Coordinates.Text += $"\n{x}, {y}";
+                    }
+                }
+                Dictionary<double, double> tochki = spline(dataX.ToArray(), dataY.ToArray());
+                WpfPlot1.Plot.Add.Scatter(tochki.Keys.ToArray(), tochki.Values.ToArray());
+                WpfPlot1.Refresh();
+                double xmax = 0.0, ymax = 0.0;
+                double xmin = 9999999, ymin = 99999;
+                for (double x3 = dataX.ToArray()[0]; x3 <= dataX.ToArray()[dataX.ToArray().Length - 1]; x3 += 1e-1)
+                {
+                    double y3 = find_y(x3, dataX.ToArray(), dataY.ToArray());
+                    if (ymax < y3)
+                    {
+                        xmax = x3;
+                        ymax = y3;
+                    }
+                    if (ymin > y3)
+                    {
+                        xmin = x3;
+                        ymin = y3;
+                    }
+                }
+                Max_Min.Text += $"\n№{grafics}\n";
+                Max_Min.Text += $"Метод дихотомии:\nmax_x={xmax}, max_y={ymax}\nx_min={xmin}, y_min={ymin}";
+                double a = dataX[0];
+                double b = dataX[dataX.ToArray().Length - 1];
+                double eps = .001;
+                double x1 = 0;
+                double x2 = 0;
+                double y1 = 0;
+                double y2 = 0;
+                double x4 = 0;
+                while (true)
+                {
+                    x1 = b - (b - a) / 1.618;
+                    x2 = a + (b - a) / 1.618;
+                    y1 = find_y(x1, dataX.ToArray(), dataY.ToArray());
+                    y2 = find_y(x2, dataX.ToArray(), dataY.ToArray());
+                    if (y1 >= y2)
+                    {
+                        a = x1;
+                    }
+                    else
+                    {
+                        b = x2;
+                    }
+                    if (Math.Abs(b - a) < eps)
+                    {
+                        x4 = (a + b) / 2;
+                        break;
+                    }
+                }
+                Max_Min.Text += "\nМетод градиентного спуска";
+                Max_Min.Text += $"\nx_min={x4}, y_min={find_y(x4, dataX.ToArray(), dataY.ToArray())}";
+            }
+            catch (Exception ex)
+            {
+                ///ну  тип решил не выбирать файл
+            }
+        }
+    }
 }

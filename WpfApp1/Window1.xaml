@@ -12,9 +12,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Открыть файл с точками" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Height="52" Width="152"/>
+        <Button Content="Очистить и построить  один график" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Width="174" Height="52"/>
+        <Button Content="Добавить файл с точками" HorizontalAlignment="Left" Margin="202,372,0,0" VerticalAlignment="Top" Click="Button_Click2" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Height="52" Width="152"/>
         <ScottPlot:WpfPlot x:Name="WpfPlot1"  Grid.Row="1" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="28,34,0,0" TextWrapping="Wrap" Text="X Y" VerticalAlignment="Top" Height="333" Width="91" x:Name="Coordinates"/>
-        <TextBlock HorizontalAlignment="Left" Margin="178,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="201" Height="315" x:Name="Max_Min"/>
+        <TextBlock HorizontalAlignment="Left" Margin="178,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="176" Height="315" x:Name="Max_Min"/>
     </Grid>
 </Window>

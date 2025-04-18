@@ -8,8 +8,5 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Перейти на построение графиков" HorizontalAlignment="Left" Margin="36,383,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="Методы поиска максимума и минимума" HorizontalAlignment="Center" Margin="0,383,0,0" VerticalAlignment="Top" Width="235"/>
-        <Button Content="Методы интегралов" HorizontalAlignment="Left" Margin="591,383,0,0" VerticalAlignment="Top" Width="123" Height="20"/>
-
     </Grid>
 </Window>
