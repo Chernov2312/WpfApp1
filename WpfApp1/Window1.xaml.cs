@@ -103,6 +103,57 @@ namespace WpfApp1
             }
             return x2 * x2 * a[index] + x2 * b[index] + c[index];
         }
+        public void max_min(double[] dataX, double[] dataY)
+        {
+            double xmax = 0.0, ymax = 0.0;
+            double xmin = 9999999, ymin = 99999;
+            for (double x3 = dataX[0]; x3 <= dataX.ToArray()[dataX.Length - 1]; x3 += 1e-1)
+            {
+                double y3 = find_y(x3, dataX, dataY);
+                if (ymax < y3)
+                {
+                    xmax = x3;
+                    ymax = y3;
+                }
+                if (ymin > y3)
+                {
+                    xmin = x3;
+                    ymin = y3;
+                }
+            }
+            Max_Min.Text += $"\n№{grafics}\n";
+            Max_Min.Text += $"Метод дихотомии:\nmax_x={xmax}, max_y={ymax}\nx_min={xmin}, y_min={ymin}";
+            double a = dataX[0];
+            double b = dataX[dataX.ToArray().Length - 1];
+            double eps = .001;
+            double x1 = 0;
+            double x2 = 0;
+            double y1 = 0;
+            double y2 = 0;
+            double x4 = 0;
+            while (true)
+            {
+                x1 = b - (b - a) / 1.618;
+                x2 = a + (b - a) / 1.618;
+                y1 = find_y(x1, dataX, dataY);
+                y2 = find_y(x2, dataX, dataY);
+                if (y1 >= y2)
+                {
+                    a = x1;
+                }
+                else
+                {
+                    b = x2;
+                }
+                if (Math.Abs(b - a) < eps)
+                {
+                    x4 = (a + b) / 2;
+                    break;
+                }
+            }
+            Max_Min.Text += "\nМетод градиентного спуска";
+            Max_Min.Text += $"\nx_min={x4}, y_min={find_y(x4, dataX, dataY)}";
+        }
         public Window1()
         {
             InitializeComponent();
@@ -137,60 +188,13 @@ namespace WpfApp1
                     {
                         dataX.Add(x);
                         dataY.Add(y);
-                        Coordinates.Text += $"\n{x}, {y}";
+                        Coordinates.Text += $"\n{Math.Round((double)x, 3)}, {Math.Round((double)y, 3)}";
                     }
                 }
                 Dictionary<double, double> tochki = spline(dataX.ToArray(), dataY.ToArray());
                 WpfPlot1.Plot.Add.Scatter(tochki.Keys.ToArray(), tochki.Values.ToArray());
                 WpfPlot1.Refresh();
-                double xmax = 0.0, ymax = 0.0;
-                double xmin = 9999999, ymin = 99999;
-                for (double x3 = dataX.ToArray()[0]; x3 <= dataX.ToArray()[dataX.ToArray().Length - 1]; x3 += 1e-1)
-                {
-                    double y3 = find_y(x3, dataX.ToArray(), dataY.ToArray());
-                    if (ymax < y3)
-                    {
-                        xmax = x3;
-                        ymax = y3;
-                    }
-                    if (ymin > y3)
-                    {
-                        xmin = x3;
-                        ymin = y3;
-                    }
-                }
-                Max_Min.Text += $"\n№{grafics}\n";
-                Max_Min.Text += $"Метод дихотомии:\nmax_x={xmax}, max_y={ymax}\nx_min={xmin}, y_min={ymin}";
-                double a = dataX[0];
-                double b = dataX[dataX.ToArray().Length - 1];
-                double eps = .001;
-                double x1 = 0;
-                double x2 = 0;
-                double y1 = 0;
-                double y2 = 0;
-                double x4 = 0;
-                while (true)
-                {
-                    x1 = b - (b - a) / 1.618;
-                    x2 = a + (b - a) / 1.618;
-                    y1 = find_y(x1, dataX.ToArray(), dataY.ToArray());
-                    y2 = find_y(x2, dataX.ToArray(), dataY.ToArray());
-                    if (y1 >= y2)
-                    {
-                        a = x1;
-                    }
-                    else
-                    {
-                        b = x2;
-                    }
-                    if (Math.Abs(b - a) < eps)
-                    {
-                        x4 = (a + b) / 2;
-                        break;
-                    }
-                }
-                Max_Min.Text += "\nМетод градиентного спуска";
-                Max_Min.Text += $"\nx_min={x4}, y_min={find_y(x4, dataX.ToArray(), dataY.ToArray())}";
+                max_min(dataX.ToArray(), dataY.ToArray());
             }
             catch (Exception ex)
             {
@@ -201,7 +205,10 @@ namespace WpfApp1
         {
             List<double> dataX = new List<double>();
             List<double> dataY = new List<double>();
-            for (int i = -20; i <= 20; i += 1)
+            grafics += 1;
+            Coordinates.Text += $"\n№{grafics}\n";
+            Coordinates.Text += "X Y";
+            for (int i = int.Parse(predel.Text.Split(" ")[0]); i <= int.Parse(predel.Text.Split(" ")[1]); i += 1)
             {
                 //System.Data.DataTable table = new System.Data.DataTable();
                 //double a = Convert.ToDouble(table.Compute(function.Text.Split("=")[function.Text.Split("=").Length - 1].Replace("x", i.ToString()), string.Empty));
@@ -212,10 +219,12 @@ namespace WpfApp1
                 engine.ExecuteFile("C:\\Users\\Admin\\source\\repos\\WpfApp1\\graficstroit.py", scope);
                 dynamic function_str = scope.GetVariable("function");
                 dynamic result = function_str(function.Text, i);
-                Coordinates.Text += $"\n{i}, {result}";
+                Coordinates.Text += $"\n{i}, {Math.Round((double)result, 3)}";
                 dataX.Add(i);
                 dataY.Add(result);
             }
+            max_min(dataX.ToArray(), dataY.ToArray());
+
             Dictionary<double, double> tochki = spline(dataX.ToArray(), dataY.ToArray());
             WpfPlot1.Plot.Add.Scatter(tochki.Keys.ToArray(), tochki.Values.ToArray());
             WpfPlot1.Refresh();
