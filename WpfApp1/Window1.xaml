@@ -12,10 +12,13 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Очистить и построить  один график" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Width="174" Height="52"/>
-        <Button Content="Добавить файл с точками" HorizontalAlignment="Left" Margin="202,372,0,0" VerticalAlignment="Top" Click="Button_Click2" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Height="52" Width="152"/>
+        <Button Content="Очистить" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Width="88" Height="52"/>
+        <Button Content="Построить по точкам" HorizontalAlignment="Left" Margin="266,372,0,0" VerticalAlignment="Top" Click="Button_Click2" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Height="52" Width="124"/>
         <ScottPlot:WpfPlot x:Name="WpfPlot1"  Grid.Row="1" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="28,34,0,0" TextWrapping="Wrap" Text="X Y" VerticalAlignment="Top" Height="333" Width="91" x:Name="Coordinates"/>
-        <TextBlock HorizontalAlignment="Left" Margin="178,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="176" Height="315" x:Name="Max_Min"/>
+        <TextBlock HorizontalAlignment="Left" Margin="121,34,0,0" TextWrapping="Wrap" Text="X Y" VerticalAlignment="Top" Height="333" Width="88" x:Name="Coordinates" ScrollViewer.CanContentScroll="True"/>
+        <TextBlock HorizontalAlignment="Left" Margin="214,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="176" Height="315" x:Name="Max_Min" ScrollViewer.CanContentScroll="True"/>
+        <Button Content="Построить фукнкцию" HorizontalAlignment="Left" Margin="122,372,0,0" VerticalAlignment="Top" Click="Button_Click3" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Width="127" Height="52"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" Text="Введите график" VerticalAlignment="Top" Width="88" Height="36" x:Name="function"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,21,0,0" TextWrapping="Wrap" Text="Введите функцию" VerticalAlignment="Top"/>
     </Grid>
 </Window>

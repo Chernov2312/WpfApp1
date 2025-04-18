@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
-using static System.Net.Mime.MediaTypeNames;
+using ScottPlot;
 
 namespace WpfApp1
 {
@@ -22,9 +22,6 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-
-            ImageBrush myBrush = new ImageBrush();
-   
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

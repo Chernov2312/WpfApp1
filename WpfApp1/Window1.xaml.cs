@@ -1,9 +1,12 @@
 ﻿
+using Microsoft.CodeAnalysis.CSharp.Scripting;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +17,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace WpfApp1
 {
     /// <summary>
@@ -103,86 +109,11 @@ namespace WpfApp1
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            grafics = 0;
-            grafics += 1;
-            List<double> dataX = new List<double>();
-            List<double> dataY = new List<double>();
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            Coordinates.Text = $"\n№{grafics}\n";
-            Coordinates.Text += "X Y";
-            openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt"; // "|*.txt" - так тоже можно,
-                                                                     // часть до | для красоты
-            openFileDialog.ShowDialog();
-            try
-            {
-                string[] lines = File.ReadAllLines(openFileDialog.FileName);
-                foreach (string line in lines)
-                {
-                    string[] parts = line.Split(' ');
-                    if (double.TryParse(parts[0], out double x) && double.TryParse(parts[1], out double y))
-                    {
-                        dataX.Add(x);
-                        dataY.Add(y);
-                        Coordinates.Text += $"\n{x}, {y}";
-                    } 
-
-
-                }
-                Dictionary<double, double> tochki = spline(dataX.ToArray(), dataY.ToArray());
-                WpfPlot1.Plot.Clear();
-                WpfPlot1.Plot.Add.Scatter(tochki.Keys.ToArray(), tochki.Values.ToArray());
-                WpfPlot1.Refresh();
-                double xmax = 0.0, ymax = 0.0;
-                double xmin = 9999999, ymin = 99999;
-                for (double x3 = dataX.ToArray()[0]; x3 <= dataX.ToArray()[dataX.ToArray().Length - 1]; x3 += 1e-1)
-                {
-                    double y3 = find_y(x3, dataX.ToArray(), dataY.ToArray());
-                    if (ymax < y3)
-                    {
-                        xmax = x3;
-                        ymax = y3;
-                    }
-                    if (ymin>y3)
-                    {
-                        xmin = x3;
-                        ymin = y3;
-                    }
-                }
-                Max_Min.Text = $"№{grafics}\n";
-                Max_Min.Text += $"Метод дихотомии:\nmax_x={xmax}, max_y={ymax}\nx_min={xmin}, y_min={ymin}";
-                double a = dataX[0];
-                double b = dataX[dataX.ToArray().Length - 1];
-                double eps = .001;
-                double x1 = 0;
-                double x2 = 0;
-                double y1 = 0;
-                double y2 = 0;
-                double x4 = 0;
-                while (true) {
-                    x1 = b - (b - a) / 1.618;
-                    x2 = a + (b - a) / 1.618;
-                    y1 = find_y(x1, dataX.ToArray(), dataY.ToArray());
-                    y2 = find_y(x2, dataX.ToArray(), dataY.ToArray());
-                    if (y1 >= y2) {
-                        a = x1;
-                    }
-                    else
-                    {
-                        b = x2; 
-                    }
-                     if (Math.Abs(b - a) < eps){
-                        x4 = (a + b) / 2;
-                        break;
-                    }
-                }
-                Max_Min.Text += "\nМетод градиентного спуска";
-                Max_Min.Text += $"\nx_min={x4}, y_min={find_y(x4, dataX.ToArray(), dataY.ToArray())}";
-            }
-            catch(Exception ex)
-            {
-                ///ну  тип решил не выбирать файл
-            }
-
+            
+            WpfPlot1.Plot.Clear();
+            WpfPlot1.Refresh();
+            Max_Min.Text = "";
+            Coordinates.Text = "";
         }
 
         private void Button_Click2(object sender, RoutedEventArgs e)
@@ -265,6 +196,29 @@ namespace WpfApp1
             {
                 ///ну  тип решил не выбирать файл
             }
+        }
+        private void Button_Click3(object sender, RoutedEventArgs e)
+        {
+            List<double> dataX = new List<double>();
+            List<double> dataY = new List<double>();
+            for (int i = -20; i <= 20; i += 1)
+            {
+                //System.Data.DataTable table = new System.Data.DataTable();
+                //double a = Convert.ToDouble(table.Compute(function.Text.Split("=")[function.Text.Split("=").Length - 1].Replace("x", i.ToString()), string.Empty));
+                //var a = CSharpScript.EvaluateAsync<double>(function.Text.Split("=")[function.Text.Split("=").Length - 1].Replace("x", i.ToString())).Result;
+                //double a = "-2 * Math.Log(1/0.5f + Math.Sqrt(1/Math.Pow(0.5d, 2) + 1L))".Evaluate(new DotNetStandartMathContext());
+                ScriptEngine engine = Python.CreateEngine();
+                ScriptScope scope = engine.CreateScope();
+                engine.ExecuteFile("C:\\Users\\Admin\\source\\repos\\WpfApp1\\graficstroit.py", scope);
+                dynamic function_str = scope.GetVariable("function");
+                dynamic result = function_str(function.Text, i);
+                Coordinates.Text += $"\n{i}, {result}";
+                dataX.Add(i);
+                dataY.Add(result);
+            }
+            Dictionary<double, double> tochki = spline(dataX.ToArray(), dataY.ToArray());
+            WpfPlot1.Plot.Add.Scatter(tochki.Keys.ToArray(), tochki.Values.ToArray());
+            WpfPlot1.Refresh();
         }
     }
 }
