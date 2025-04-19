@@ -9,20 +9,33 @@
         Title="Window1" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.20*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Очистить" HorizontalAlignment="Center" Margin="0,372,0,0" VerticalAlignment="Top" Click="Button_Click" RenderTransformOrigin="-0.36,5.8" Width="98" Height="52" Background="Salmon"/>
-        <Button HorizontalAlignment="Left" Margin="266,372,0,0" VerticalAlignment="Top" Click="Button_Click2" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Height="52" Width="124" Background="AliceBlue">
-            <TextBlock>Построить график<LineBreak/>по точкам</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Button BorderThickness="0" Content="Очистить"  Click="Button_Click" RenderTransformOrigin="-0.36,5.8" Background="Transparent" Grid.Row="5" Grid.Column="1" FontSize="20" Foreground="White"/>
+        <Button BorderThickness="0" Click="Button_Click3" RenderTransformOrigin="-0.36,5.8" Background="Transparent" Grid.Row="5" Grid.Column="0" Foreground="White">
+            <TextBlock Height="auto" FontSize="20" Width="auto" TextWrapping="Wrap">Построить фукнкцию</TextBlock>
         </Button>
-        <ScottPlot:WpfPlot x:Name="WpfPlot1"  Grid.Row="1" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="121,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="333" Width="88" x:Name="Coordinates" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <TextBlock HorizontalAlignment="Left" Margin="214,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="176" Height="315" x:Name="Max_Min" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" />
-        <Button Content="Построить фукнкцию" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Click="Button_Click3" RenderTransformOrigin="-0.36,5.8" Grid.Column="0" Width="127" Height="52" Background="Bisque"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" Text="Введите график" VerticalAlignment="Top" Width="88" Height="36" x:Name="function"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,21,0,0" TextWrapping="Wrap" Text="Введите функцию" VerticalAlignment="Top" Background="Bisque"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,148,0,0" TextWrapping="Wrap" Text="-20 20" VerticalAlignment="Top" Width="88" Height="21" RenderTransformOrigin="0.484,1.589" x:Name="predel"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,83,0,0" TextWrapping="Wrap" Text="Введите ограничение по X" VerticalAlignment="Top" Background="Bisque" Height="54" Width="88"/>
+        <Button BorderThickness="0" Click="Button_Click2" Background="Transparent" Grid.Row="5" Grid.Column="2" TextBlock.FontSize="13" Foreground="White" >
+            <TextBlock TextWrapping="Wrap" Height="auto" Width="auto" FontSize="20">Построить график по точкам</TextBlock>
+        </Button>
+        <ScottPlot:WpfPlot x:Name="WpfPlot1"  Grid.Row="0" Grid.Column="4" Grid.RowSpan="6" Background="Transparent"/>
+        <TextBox BorderThickness="0" Foreground="White" Background="Transparent" Name="Coordinates" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" TextBlock.FontSize="13"/>
+        <TextBox BorderThickness="0" Foreground="White" Background="Transparent" TextWrapping="Wrap" Text="" x:Name="Max_Min" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.RowSpan="4" Grid.Column="2" TextBlock.FontSize="13"/>
+        <TextBox Opacity="0.5" BorderThickness="0" Foreground="White" Background="Black" TextWrapping="Wrap" Text="y = " x:Name="function" Grid.Column="0" Grid.Row="1" TextBlock.FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Width="135"/>
+        <TextBlock Padding="0" Foreground="White" Background="Transparent" TextWrapping="Wrap" Text="Введите функцию"   Grid.Row="0" TextBlock.FontSize="13" />
+        <TextBox Opacity="0.5" Background="Black" BorderThickness="0" Foreground="White" TextWrapping="Wrap" Text="-20 20"  x:Name="predel" Grid.Row="3" Grid.Column="0" TextBlock.FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Width="135"/>
+        <TextBlock Padding="0" Foreground="White" Background="Transparent" TextWrapping="Wrap" Text="Введите ограничение по X для построения графика (работает если строить не по точкам)" TextBlock.FontSize="13"  Grid.Column="0" Grid.Row="2"/>
+        <Image Source="/first_background.jpeg" Grid.ColumnSpan="3" Grid.RowSpan="6" Panel.ZIndex="-1" Stretch="UniformToFill"/>
     </Grid>
 </Window>

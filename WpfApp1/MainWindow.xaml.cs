@@ -22,6 +22,9 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+
+            video.Position = TimeSpan.FromSeconds(0);
+            video.Play();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -29,6 +32,11 @@ namespace WpfApp1
             Window1 window = new Window1();
             this.Close();
             window.Show();
+        }
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            video.Position = TimeSpan.FromSeconds(0);
+            video.Play();
         }
     }
 }

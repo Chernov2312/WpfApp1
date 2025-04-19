@@ -19,7 +19,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace WpfApp1
 {
     /// <summary>
@@ -30,7 +29,7 @@ namespace WpfApp1
         public int grafics = 0;
         Dictionary<double, double> spline(double[] x, double[] y)
         {
-            double key = 0.025;
+            double key = 0.02;
             double[] b = new double[y.Length];
             double[] B = new double[y.Length];
             double[] h = new double[y.Length];
@@ -107,17 +106,17 @@ namespace WpfApp1
         {
             double xmax = 0.0, ymax = 0.0;
             double xmin = 9999999, ymin = 99999;
-            for (double x3 = dataX[0]; x3 <= dataX.ToArray()[dataX.Length - 1]; x3 += 1e-1)
+            for (double x_dihotom = dataX[0]; x_dihotom <= dataX.ToArray()[dataX.Length - 1]; x_dihotom += 1e-1)
             {
-                double y3 = find_y(x3, dataX, dataY);
+                double y3 = find_y(x_dihotom, dataX, dataY);
                 if (ymax < y3)
                 {
-                    xmax = x3;
+                    xmax = x_dihotom;
                     ymax = y3;
                 }
                 if (ymin > y3)
                 {
-                    xmin = x3;
+                    xmin = x_dihotom;
                     ymin = y3;
                 }
             }
@@ -208,7 +207,7 @@ namespace WpfApp1
             grafics += 1;
             Coordinates.Text += $"\n№{grafics}\n";
             Coordinates.Text += "X Y";
-            for (int i = int.Parse(predel.Text.Split(" ")[0]); i <= int.Parse(predel.Text.Split(" ")[1]); i += 1)
+            for (double i = double.Parse(predel.Text.Split(" ")[0]); i <= double.Parse(predel.Text.Split(" ")[1]); i += 0.1)
             {
                 //System.Data.DataTable table = new System.Data.DataTable();
                 //double a = Convert.ToDouble(table.Compute(function.Text.Split("=")[function.Text.Split("=").Length - 1].Replace("x", i.ToString()), string.Empty));
@@ -216,17 +215,15 @@ namespace WpfApp1
                 //double a = "-2 * Math.Log(1/0.5f + Math.Sqrt(1/Math.Pow(0.5d, 2) + 1L))".Evaluate(new DotNetStandartMathContext());
                 ScriptEngine engine = Python.CreateEngine();
                 ScriptScope scope = engine.CreateScope();
-                engine.ExecuteFile("C:\\Users\\Admin\\source\\repos\\WpfApp1\\graficstroit.py", scope);
+                engine.ExecuteFile("C:\\Users\\Admin\\source\\repos\\WpfApp1\\WpfApp1\\graficstroit.py", scope);
                 dynamic function_str = scope.GetVariable("function");
                 dynamic result = function_str(function.Text, i);
-                Coordinates.Text += $"\n{i}, {Math.Round((double)result, 3)}";
+                Coordinates.Text += $"\n{Math.Round((double)i, 3)}, {Math.Round((double)result, 3)}";
                 dataX.Add(i);
                 dataY.Add(result);
             }
             max_min(dataX.ToArray(), dataY.ToArray());
-
-            Dictionary<double, double> tochki = spline(dataX.ToArray(), dataY.ToArray());
-            WpfPlot1.Plot.Add.Scatter(tochki.Keys.ToArray(), tochki.Values.ToArray());
+            WpfPlot1.Plot.Add.Scatter(dataX, dataY);
             WpfPlot1.Refresh();
         }
     }
