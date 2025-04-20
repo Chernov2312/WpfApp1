@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="770">
+        Title="MainWindow" Height="450" Width="770" SizeChanged="Window_SizeChanged">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button BorderThickness="0" Content="Перейти на построение графиков" Click="Button_Click" Panel.ZIndex="2" Grid.Row="1" TextBlock.FontSize="27" Background="Transparent" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button BorderThickness="0" Content="Перейти на построение графиков" Click="Button_Click" Panel.ZIndex="2" Grid.Row="1" Background="Transparent" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="transition"/>
         <MediaElement Source="C:\Users\Admin\source\repos\WpfApp1\WpfApp1\Fly_Through_Formulas_Black.mp4" Panel.ZIndex="1" Grid.RowSpan="2" MediaEnded="Button_Click2" x:Name="video" LoadedBehavior="Manual" Stretch="UniformToFill"/>
     </Grid>
 </Window>

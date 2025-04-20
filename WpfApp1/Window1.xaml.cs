@@ -153,9 +153,37 @@ namespace WpfApp1
             Max_Min.Text += "\nМетод градиентного спуска";
             Max_Min.Text += $"\nx_min={x4}, y_min={find_y(x4, dataX, dataY)}";
         }
+        private void sized()
+        {
+            double widthRatio = ActualWidth / 800;
+            double heightRatio = ActualHeight / 600;
+            button_clear.FontSize = 50 * widthRatio;
+            button_clear.FontSize = 25 * heightRatio;
+            create_function.FontSize = 50 * widthRatio;
+            create_function.FontSize = 25 * heightRatio;
+            create_from_points.FontSize = 50 * widthRatio;
+            create_from_points.FontSize = 25 * heightRatio;
+            Coordinates.FontSize = 50 * widthRatio;
+            Coordinates.FontSize = 25 * heightRatio;
+            Max_Min.FontSize = 50 * widthRatio;
+            Max_Min.FontSize = 25 * heightRatio;
+            function.FontSize = 50 * widthRatio;
+            function.FontSize = 25 * heightRatio;
+            text_enter_function.FontSize = 50 * widthRatio;
+            text_enter_function.FontSize = 25 * heightRatio;
+            predel.FontSize = 50 * widthRatio;
+            predel.FontSize = 25 * heightRatio;
+            enter_predel.FontSize = 50 * widthRatio;
+            enter_predel.FontSize = 25 * heightRatio;
+        }
         public Window1()
         {
             InitializeComponent();
+        }
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            sized();
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

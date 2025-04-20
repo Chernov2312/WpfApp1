@@ -26,7 +26,14 @@ namespace WpfApp1
             video.Position = TimeSpan.FromSeconds(0);
             video.Play();
         }
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double widthRatio = ActualWidth / 800;
+            double heightRatio = ActualHeight / 600;
+            transition.FontSize = 50 * widthRatio;
+            transition.FontSize = 25 * heightRatio;
 
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Window1 window = new Window1();
