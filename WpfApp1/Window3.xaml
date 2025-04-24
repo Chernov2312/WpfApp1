@@ -1,0 +1,40 @@
+﻿<Window x:Class="WpfApp1.Window3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Window3" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Padding="0" Foreground="White" Background="Transparent" TextWrapping="Wrap" Text="Введите уравнение"   Grid.Row="0" TextBlock.FontSize="13" Margin="10,0,0,0" x:Name="text_enter_ur"/>
+        <TextBox Opacity="0.5" BorderThickness="0" Foreground="White" Background="Black" TextWrapping="Wrap" Text="" Grid.Column="0" Grid.Row="1" TextBlock.FontSize="13" VerticalAlignment="Center" MinWidth="135" x:Name="uravnenie"/>
+        <Button BorderThickness="0" Click="add_button" RenderTransformOrigin="-0.36,5.8" Background="Transparent" Grid.Row="1" Grid.Column="1" Foreground="White" Content="Добавить" HorizontalAlignment="Left" x:Name="add"/>
+        <ComboBox Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Opacity="0.5" Background="Black" x:Name="combox"/>
+        <Button BorderThickness="0" Click="clear_button" RenderTransformOrigin="-0.36,5.8" Background="Transparent" Grid.Row="2" Grid.Column="1" Foreground="White" Content="Очистить" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button BorderThickness="0" Click="Button_resh" RenderTransformOrigin="-0.36,5.8" Background="Transparent" Grid.Row="6" Grid.Column="0" Foreground="White">
+            <TextBlock Height="auto" x:Name="resh" Width="auto" TextWrapping="Wrap">Решить уравнение</TextBlock>
+        </Button>
+        <Button BorderThickness="0" Click="Button_back_to_menu" Background="Transparent" Grid.Row="6" Grid.Column="2" TextBlock.FontSize="13" Foreground="White">
+            <TextBlock TextWrapping="Wrap" Height="auto" Width="auto" x:Name="back">Вернуться в меню</TextBlock>
+        </Button>
+        <TextBox BorderThickness="0" Foreground="White" Background="Transparent" Name="Otvet" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="4" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" TextBlock.FontSize="13"/>
+        <Image Source="/photo_2025-04-24_21-33-55.jpg" Grid.ColumnSpan="4" Grid.RowSpan="7" Panel.ZIndex="-1" Stretch="UniformToFill"/>
+    </Grid>
+</Window>

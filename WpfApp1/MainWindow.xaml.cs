@@ -32,6 +32,12 @@ namespace WpfApp1
             double heightRatio = ActualHeight / 600;
             transition.FontSize = 50 * widthRatio;
             transition.FontSize = 25 * heightRatio;
+            resh_ur.FontSize = 50 * widthRatio;
+            resh_ur.FontSize = 25 * heightRatio;
+            points.FontSize = 50 * widthRatio;
+            points.FontSize = 25 * heightRatio;
+            exit_button.FontSize = 50 * widthRatio;
+            exit_button.FontSize = 25 * heightRatio;
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,6 +50,24 @@ namespace WpfApp1
         {
             video.Position = TimeSpan.FromSeconds(0);
             video.Play();
+        }
+        private void Button_Click4(object sender, RoutedEventArgs e)
+        {
+            Window3 window = new Window3();
+            this.Close();
+            window.Show();
+        }
+
+        private void button_points(object sender, RoutedEventArgs e)
+        {
+            Window2 window = new Window2();
+            this.Close();
+            window.Show();
+        }
+
+        private void button_exit(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

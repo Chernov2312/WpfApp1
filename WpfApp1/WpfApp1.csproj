@@ -9,7 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="first_background.jpeg" />
+    <None Remove="photo_2025-04-24_21-03-05.jpg" />
+    <None Remove="photo_2025-04-24_21-33-55.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="first_background.jpeg" />
+    <Resource Include="photo_2025-04-24_21-03-05.jpg" />
+    <Resource Include="photo_2025-04-24_21-33-55.jpg" />
   </ItemGroup>
 
 </Project>

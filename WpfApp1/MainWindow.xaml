@@ -10,8 +10,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button BorderThickness="0" Content="Перейти на построение графиков" Click="Button_Click" Panel.ZIndex="2" Grid.Row="1" Background="Transparent" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="transition"/>
-        <MediaElement Source="C:\Users\Admin\source\repos\WpfApp1\WpfApp1\Fly_Through_Formulas_Black.mp4" Panel.ZIndex="1" Grid.RowSpan="2" MediaEnded="Button_Click2" x:Name="video" LoadedBehavior="Manual" Stretch="UniformToFill"/>
+        <Button BorderThickness="0" Content="Построение с использованием известной функции" Click="Button_Click" Panel.ZIndex="2" Grid.Row="4" Background="Transparent" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="transition"/>
+        <Button BorderThickness="0" Content="Выход" Click="button_exit" Panel.ZIndex="2" Grid.Row="4" Background="Transparent" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="exit_button"/>
+        <Button BorderThickness="0" Content="Построение графиков по точкам" Click="button_points" Panel.ZIndex="2" Grid.Row="3" Background="Transparent" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="points"/>
+        <Button BorderThickness="0" Content="Решение уравнений" Click="Button_Click4" Panel.ZIndex="2" Grid.Row="2" Background="Transparent" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="resh_ur"/>
+        <MediaElement Source="C:\Users\Admin\source\repos\WpfApp1\WpfApp1\Fly_Through_Formulas_Black.mp4" Panel.ZIndex="1" Grid.RowSpan="5" MediaEnded="Button_Click2" x:Name="video" LoadedBehavior="Manual" Stretch="UniformToFill"/>
     </Grid>
 </Window>
